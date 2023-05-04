@@ -1,2 +1,0 @@
-# cesiumDemo
-cesium demo
