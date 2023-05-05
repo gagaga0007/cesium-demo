@@ -21,14 +21,26 @@ Cesium.Ion.defaultAccessToken = Config.cesiumToken
 Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(89.5, 20.4, 110.4, 61.2)
 
 const router = useRouter()
+
 const onPush = (path) => {
   router.push(path)
+}
+
+const getButtonClass = (item) => {
+  const path = router.currentRoute.value.path
+  if (path === item.path) return 'active'
+  return ''
 }
 </script>
 
 <template>
   <header>
-    <button v-for="item in routes" :key="item.path" @click="() => onPush(item.path)">
+    <button
+      v-for="item in routes"
+      :key="item.path"
+      @click="() => onPush(item.path)"
+      :class="getButtonClass(item)"
+    >
       {{ item.name }}
     </button>
   </header>
@@ -53,6 +65,15 @@ header {
 main {
   width: 100vw;
   height: calc(100vh - 30px);
+}
+
+button {
+  padding: 0 8px;
+}
+
+.active {
+  background-color: #8d8d8d;
+  color: #ffffff;
 }
 
 ::-webkit-scrollbar {
