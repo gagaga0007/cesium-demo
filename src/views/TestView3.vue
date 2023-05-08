@@ -16,36 +16,26 @@ onMounted(async () => {
 
   viewer.value = v
 
-  // 颜色纹理
-  const material = new Cesium.ColorMaterialProperty(new Cesium.Color(1.0, 1.0, 1.0, 1.0))
   /**
-   * 创建矩形
-   * entities 方式
+   * 纹理
    */
-  v.entities.add({
-    rectangle: {
-      // 西经、南纬、东经、北纬
-      coordinates: Cesium.Rectangle.fromDegrees(65, 20, 85, 30),
-      // material: Cesium.Color.RED.withAlpha(0.5),
-      material: material,
-    },
-  })
-
+  // 颜色纹理
+  // const material = new Cesium.ColorMaterialProperty(new Cesium.Color(1.0, 1.0, 1.0, 1.0))
   // 棋盘纹理
-  // const material2 = new Cesium.CheckerboardMaterialProperty({
+  // const material = new Cesium.CheckerboardMaterialProperty({
   //   evenColor: Cesium.Color.RED,
   //   oddColor: Cesium.Color.YELLOW,
   //   // 4 * 4
   //   repeat: new Cesium.Cartesian2(4, 4),
   // })
   // 条纹纹理
-  // const material2 = new Cesium.StripeMaterialProperty({
+  // const material = new Cesium.StripeMaterialProperty({
   //   evenColor: Cesium.Color.WHITE,
   //   oddColor: Cesium.Color.BLACK,
   //   repeat: 8,
   // })
   // 网格纹理
-  const material2 = new Cesium.GridMaterialProperty({
+  const material = new Cesium.GridMaterialProperty({
     color: Cesium.Color.YELLOW,
     cellAlpha: 0.2,
     // 4 * 4
@@ -57,7 +47,7 @@ onMounted(async () => {
     rectangle: {
       // 西经、南纬、东经、北纬
       coordinates: Cesium.Rectangle.fromDegrees(90, 20, 110, 30),
-      material: material2,
+      material: material,
     },
   })
 
