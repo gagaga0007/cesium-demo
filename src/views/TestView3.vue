@@ -11,18 +11,17 @@ const interval = ref()
 
 onMounted(async () => {
   const v = new Cesium.Viewer('cesiumContainer', {
-    // 是否显示信息窗口
     infoBox: false,
   })
 
   viewer.value = v
 
+  // 颜色纹理
+  const material = new Cesium.ColorMaterialProperty(new Cesium.Color(1.0, 1.0, 1.0, 1.0))
   /**
    * 创建矩形
    * entities 方式
    */
-  // 颜色纹理
-  const material = new Cesium.ColorMaterialProperty(new Cesium.Color(1.0, 1.0, 1.0, 1.0))
   v.entities.add({
     rectangle: {
       // 西经、南纬、东经、北纬
@@ -136,6 +135,34 @@ onMounted(async () => {
     // 鼠标左键点击事件
     // https://cesium.com/learn/cesiumjs/ref-doc/global.html?classFilter=screen#ScreenSpaceEventType
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
+
+  /**
+   * 创建线
+   */
+  // 颜色材质
+  // const lineMaterial = Cesium.Color.RED
+  // 虚线材质
+  // const lineMaterialDash = new Cesium.PolylineDashMaterialProperty({
+  //   dashLength: 30,
+  //   color: Cesium.Color.RED,
+  // })
+  // 箭头材质
+  // const lineMaterialArrow = new Cesium.PolylineArrowMaterialProperty(Cesium.Color.RED)
+  // 发光材质
+  const lineMaterialGlow = new Cesium.PolylineGlowMaterialProperty({
+    glowPower: 0.8,
+    taperPower: 0.7,
+    color: Cesium.Color.RED,
+  })
+
+  // 直线
+  v.entities.add({
+    polyline: {
+      positions: Cesium.Cartesian3.fromDegreesArray([70, 40, 150, 40]),
+      width: 5,
+      material: lineMaterialGlow,
+    },
+  })
 })
 
 onUnmounted(() => {
