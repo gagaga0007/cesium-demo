@@ -8,7 +8,6 @@ import { gsap } from 'gsap'
 import { onMounted, onUnmounted, ref } from 'vue'
 
 const viewer = ref()
-const interval = ref()
 
 onMounted(async () => {
   const v = new Cesium.Viewer('cesiumContainer', {
@@ -187,10 +186,6 @@ onMounted(async () => {
 
 onUnmounted(() => {
   if (viewer.value) viewer.value.destroy()
-  if (interval.value) {
-    clearInterval(interval.value)
-    interval.value = null
-  }
 })
 </script>
 
