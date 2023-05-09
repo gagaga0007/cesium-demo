@@ -4,6 +4,7 @@ import TestView2 from '@/views/TestView2.vue'
 import TestView3 from '@/views/TestView3.vue'
 import TestView4 from '@/views/TestView4.vue'
 import TestView5 from '@/views/TestView5.vue'
+import TestView6 from '@/views/TestView6.vue'
 
 export const routes = [
   { path: '/', name: 'test1', component: TestView1 },
@@ -11,6 +12,7 @@ export const routes = [
   { path: '/test3', name: 'test3', component: TestView3 },
   { path: '/test4', name: 'test4', component: TestView4 },
   { path: '/test5', name: 'test5', component: TestView5 },
+  { path: '/test6', name: 'test6', component: TestView6 },
 ]
 
 const router = createRouter({
