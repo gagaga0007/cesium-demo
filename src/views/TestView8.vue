@@ -11,7 +11,6 @@ const viewer = ref()
 onMounted(async () => {
   const v = new Cesium.Viewer('cesiumContainer', {
     infoBox: false,
-    shouldAnimate: true, // 是否允许动画
   })
 
   viewer.value = v
