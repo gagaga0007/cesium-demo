@@ -12,6 +12,7 @@ const interval = ref()
 onMounted(async () => {
   const v = new Cesium.Viewer('cesiumContainer', {
     infoBox: false,
+    shouldAnimate: true, // 是否允许动画
   })
 
   viewer.value = v
@@ -41,6 +42,62 @@ onMounted(async () => {
     // 挤出高度
     // entity.polygon.extrudedHeight = 1000000
   })
+
+  // 加载 kml 数据（xml 格式）
+  const kmlData = await Cesium.KmlDataSource.load('./geo/facilities.kml', {
+    camera: v.scene.camera,
+    canvas: v.scene.canvas,
+    screenOverlayContainer: v.container,
+  })
+  await v.dataSources.add(kmlData)
+
+  // 加载 kmz 数据（压缩格式）
+  // const kmzData = await Cesium.KmlDataSource.load('./geo/kmlfactbook_output.kmz', {
+  //   camera: v.scene.camera,
+  //   canvas: v.scene.canvas,
+  //   screenOverlayContainer: v.container,
+  // })
+  // await v.dataSources.add(kmzData)
+
+  // 加载czml数据（JSON 格式）
+  const czmlData = await Cesium.CzmlDataSource.load('./geo/box.czml')
+  await v.dataSources.add(czmlData)
+  // await v.flyTo(czmlData)
+
+  // czml 时序移动
+  const czml = [
+    {
+      id: 'document',
+      name: 'CZML Point - Time Dynamic',
+      version: '1.0',
+    },
+    {
+      id: 'point',
+      // 物体在什么时间范围可用
+      availability: '2012-08-04T16:00:00Z/2012-08-04T16:05:00Z',
+      position: {
+        // 设置物体的起始时间
+        epoch: '2012-08-04T16:00:00Z',
+        // 设置了四个维度：时间、经度、纬度、高度
+        cartographicDegrees: [
+          0, 70, 20, 150000, 100, 80, 44, 150000, 200, 90, 18, 150000, 300, 98, 52, 150000,
+        ],
+      },
+      point: {
+        color: {
+          rgba: [255, 255, 255, 128],
+        },
+        outlineColor: {
+          rgb: [255, 0, 0],
+        },
+        outlineWidth: 4,
+        pixelSize: 16,
+      },
+    },
+  ]
+
+  const czmlData2 = Cesium.CzmlDataSource.load(czml)
+  await v.dataSources.add(czmlData2)
 })
 
 onUnmounted(() => {
